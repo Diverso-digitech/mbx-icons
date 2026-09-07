@@ -129,7 +129,7 @@ export function renderPreview({ manifest, categories, categoryIcons, grid, strok
 <div class="bar"><div class="wrap">
   <input id="q" type="search" placeholder="Search by name or keyword — fade, deposit, walk in…" aria-label="Search icons">
   <label>Size <input id="size" type="range" min="16" max="64" step="4" value="24"><output id="size-out">24</output></label>
-  <label>Stroke <input id="sw" type="range" min="1" max="2.5" step="0.25" value="${strokeWidth}"><output id="sw-out">${strokeWidth}</output></label>
+  <label>Stroke <input id="sw" type="range" min="0.5" max="2.5" step="0.25" value="${strokeWidth}"><output id="sw-out">${strokeWidth}</output></label>
   <label>Colour <input id="color" type="color" value="#171A21"><button id="color-reset" type="button">Reset</button></label>
 </div></div>
 

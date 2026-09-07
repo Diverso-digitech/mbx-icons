@@ -3,7 +3,7 @@
 Outline icons drawn for the barber trade, shared by the MyBarber barber app,
 client app, My Shop app, admin dashboard and website.
 
-- 24 × 24 grid, stroke 1.75, round caps and joins, `currentColor`.
+- 24 × 24 grid, stroke 1, round caps and joins, `currentColor`.
 - 97 icons in five groups: tools of the trade, services, booking & schedule,
   money, MBX programs & people.
 - Preview: [`docs/preview.html`](docs/preview.html) — search, size/stroke/colour
@@ -12,7 +12,7 @@ client app, My Shop app, admin dashboard and website.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.2.0
+npm install github:Diverso-digitech/mbx-icons#v0.3.0
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
@@ -41,7 +41,7 @@ import { Fade, MbxIcon } from '@mbx/icons/react-native';
 ```
 
 Props on both: `name` (generic component only), `size`, `color`,
-`strokeWidth` (grid units, default 1.75), `absoluteStrokeWidth` (keep the
+`strokeWidth` (grid units, default 1), `absoluteStrokeWidth` (keep the
 stroke at N px whatever the size), plus any SVG prop.
 
 **Service categories** — every node of the admin taxonomy maps to an icon:
@@ -77,7 +77,7 @@ Files: `@mbx/icons/svg/<name>.svg`, `@mbx/icons/sprite.svg`.
    calendars and bottles stay one family.
 2. Draw inside 2…22 on the 24 grid. Only `<path>`, `<circle>`, `<rect>`,
    `<line>`. Never set a colour; `fill="currentColor"` marks a deliberately
-   solid piece (see `deposit`). A dot is `M7 14h.01`.
+   solid piece (see `deposit`). A dot is a solid circle, r .9.
 3. `npm run build`. It refuses duplicates, unknown categories, disallowed
    elements, hard-coded colours and coordinates off the grid.
 4. Check `docs/preview.html` at 16 px and 48 px. It must still read at 16.
