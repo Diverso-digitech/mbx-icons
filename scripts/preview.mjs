@@ -156,9 +156,9 @@ export function renderPreview({ manifest, categories, grid, strokeWidth, rootAtt
     document.getElementById('p-kw').textContent = CATS[i.category] + ' · ' + i.keywords.join(', ');
     document.getElementById('p-stage').innerHTML = svgOf(i);
     const pascal = i.name.split('-').map((p) => p[0].toUpperCase() + p.slice(1)).join('');
-    document.getElementById('p-web').textContent = "import { " + pascal + " } from '@mbx/icons/react';\n<" + pascal + " size={20} />";
-    document.getElementById('p-rn').textContent = "import { " + pascal + " } from '@mbx/icons/react-native';\n<" + pascal + " size={24} color={colors.text} />";
-    document.getElementById('p-file').textContent = '<use href="sprite.svg#mbx-' + i.name + '"/>\n@mbx/icons/svg/' + i.name + '.svg';
+    document.getElementById('p-web').textContent = "import { " + pascal + " } from '@mbx/icons/react';\\n<" + pascal + " size={20} />";
+    document.getElementById('p-rn').textContent = "import { " + pascal + " } from '@mbx/icons/react-native';\\n<" + pascal + " size={24} color={colors.text} />";
+    document.getElementById('p-file').textContent = '<use href="sprite.svg#mbx-' + i.name + '"/>\\n@mbx/icons/svg/' + i.name + '.svg';
   }
   select(ICONS.find((i) => i.name === 'barber-pole'));
 
