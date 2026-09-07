@@ -9,6 +9,13 @@ client app, My Shop app, admin dashboard and website.
 - Preview: [`docs/preview.html`](docs/preview.html) — search, size/stroke/colour
   controls, click to copy.
 
+## Licence
+
+Source-available, not open source. MBX's own apps use these icons freely;
+**anyone else needs MBX's explicit written approval** before using, copying,
+modifying or redistributing them. See [LICENSE](LICENSE) for the terms and
+how to ask.
+
 ## Install
 
 ```bash
