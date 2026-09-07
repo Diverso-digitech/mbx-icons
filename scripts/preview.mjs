@@ -1,8 +1,17 @@
 // Renders dist/preview.html — a browsable contact sheet of the library.
-export function renderPreview({ manifest, categories, grid, strokeWidth, rootAttrs }) {
+export function renderPreview({ manifest, categories, categoryIcons, grid, strokeWidth, rootAttrs }) {
   const data = JSON.stringify(manifest.map(({ name, category, keywords, body }) => ({ name, category, keywords, body })));
   const cats = JSON.stringify(categories);
   const counts = Object.fromEntries(Object.keys(categories).map((c) => [c, manifest.filter((i) => i.category === c).length]));
+  const byName = Object.fromEntries(manifest.map((i) => [i.name, i]));
+  const svgOf = (i) => `<svg ${rootAttrs}>${i.body}</svg>`;
+  const taxonomy = Object.entries(categoryIcons)
+    .map(([path, name]) => {
+      const depth = path.split('/').length;
+      const label = path.split('/').pop().replace(/-/g, ' ');
+      return `<div class="tx d${depth}" title="${path}">${svgOf(byName[name])}<span class="tx-l">${label}</span><span class="tx-n mono">${name}</span></div>`;
+    })
+    .join('');
   const sections = Object.entries(categories)
     .map(
       ([key, label]) => `
@@ -73,6 +82,16 @@ export function renderPreview({ manifest, categories, grid, strokeWidth, rootAtt
   .tile[hidden] { display: none; }
   .empty { color: var(--muted); padding: 24px 0; }
 
+  .taxo { margin-bottom: 40px; }
+  .taxo p { margin: 0 0 12px; color: var(--muted); max-width: 62ch; }
+  .tree { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 4px 16px; }
+  .tx { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 4px; border-left: 2px solid transparent; }
+  .tx svg { width: 22px; height: 22px; stroke-width: var(--sw, ${strokeWidth}); color: var(--icon-color, currentColor); }
+  .tx.d1 { border-left-color: var(--red); font-weight: 600; text-transform: capitalize; }
+  .tx.d2 { margin-left: 16px; text-transform: capitalize; }
+  .tx.d3 { margin-left: 32px; color: var(--muted); text-transform: capitalize; }
+  .tx-n { font-size: 11px; color: var(--muted); text-transform: none; }
+
   aside { position: sticky; top: 72px; align-self: start; background: var(--surface); border: 1px solid var(--hair); border-radius: 8px; padding: 18px; }
   aside h3 { margin: 0 0 4px; font: 500 16px/1.3 "IBM Plex Mono", monospace; }
   aside .kw { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
@@ -115,7 +134,13 @@ export function renderPreview({ manifest, categories, grid, strokeWidth, rootAtt
 </div></div>
 
 <main class="wrap body">
-  <div id="cats">${sections}<p class="empty" id="empty" hidden>No icon matches that search.</p></div>
+  <div id="cats">
+    <section class="taxo">
+      <header class="cat-head"><h2>Service categories</h2><span class="count">${Object.keys(categoryIcons).length} nodes</span></header>
+      <p>The admin-curated taxonomy every service and add-on hangs off, with the icon each node resolves to via <code>categoryIcon(path)</code>. Deeper nodes without their own icon inherit their parent's.</p>
+      <div class="tree">${taxonomy}</div>
+    </section>
+    ${sections}<p class="empty" id="empty" hidden>No icon matches that search.</p></div>
   <aside id="panel" aria-live="polite">
     <h3 id="p-name">Pick an icon</h3>
     <p class="kw" id="p-kw">Each tile copies a standalone SVG. The panel shows how to use it on the web and in the Expo apps.</p>

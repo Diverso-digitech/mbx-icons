@@ -4,7 +4,7 @@ Outline icons drawn for the barber trade, shared by the MyBarber barber app,
 client app, My Shop app, admin dashboard and website.
 
 - 24 × 24 grid, stroke 1.75, round caps and joins, `currentColor`.
-- 69 icons in five groups: tools of the trade, services, booking & schedule,
+- 97 icons in five groups: tools of the trade, services, booking & schedule,
   money, MBX programs & people.
 - Preview: [`docs/preview.html`](docs/preview.html) — search, size/stroke/colour
   controls, click to copy.
@@ -12,7 +12,7 @@ client app, My Shop app, admin dashboard and website.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.1.0
+npm install github:Diverso-digitech/mbx-icons#v0.2.0
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
@@ -43,6 +43,19 @@ import { Fade, MbxIcon } from '@mbx/icons/react-native';
 Props on both: `name` (generic component only), `size`, `color`,
 `strokeWidth` (grid units, default 1.75), `absoluteStrokeWidth` (keep the
 stroke at N px whatever the size), plus any SVG prop.
+
+**Service categories** — every node of the admin taxonomy maps to an icon:
+
+```tsx
+import { categoryIcon, CATEGORY_ICONS } from '@mbx/icons';        // also re-exported from /react and /react-native
+
+<MbxIcon name={categoryIcon(service.category.path)} />            // 'hair/braids/box-braids' → 'box-braids'
+categoryIcon('hair/braids/some-new-node')                         // → 'braids' (nearest ancestor)
+categoryIcon(null)                                                // → 'haircut' (fallback, overridable)
+```
+
+The map lives in `src/icons.mjs` next to the drawings and is checked at
+build time, so a typo'd icon name fails the build rather than the app.
 
 **Anything else** — raw assets:
 

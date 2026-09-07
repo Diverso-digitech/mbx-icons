@@ -3,7 +3,7 @@ import { createElement, forwardRef } from 'react';
 const TAGS = { path: 'path', circle: 'circle', rect: 'rect', line: 'line' };
 const ROOT = 'svg';
 import { ELEMENTS, GRID, STROKE_WIDTH } from '../index.js';
-export { ELEMENTS, GRID, STROKE_WIDTH, names, CATEGORIES, META } from '../index.js';
+export { ELEMENTS, GRID, STROKE_WIDTH, names, CATEGORIES, META, CATEGORY_ICONS, categoryIcon } from '../index.js';
 
 /**
  * <MbxIcon name="fade" size={24} color="#1B1F2A" strokeWidth={1.75} />
@@ -38,7 +38,7 @@ export const Pomade = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref,
 export const BeardOil = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "beard-oil" })); BeardOil.displayName = "BeardOil";
 export const Aftershave = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "aftershave" })); Aftershave.displayName = "Aftershave";
 export const Haircut = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "haircut" })); Haircut.displayName = "Haircut";
-export const BeardTrim = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "beard-trim" })); BeardTrim.displayName = "BeardTrim";
+export const Beard = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "beard" })); Beard.displayName = "Beard";
 export const Shave = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "shave" })); Shave.displayName = "Shave";
 export const Fade = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "fade" })); Fade.displayName = "Fade";
 export const KidsCut = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "kids-cut" })); KidsCut.displayName = "KidsCut";
@@ -52,6 +52,34 @@ export const Mustache = forwardRef((p, ref) => createElement(MbxIcon, { ...p, re
 export const Eyebrows = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "eyebrows" })); Eyebrows.displayName = "Eyebrows";
 export const HotTowel = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "hot-towel" })); HotTowel.displayName = "HotTowel";
 export const AddOn = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "add-on" })); AddOn.displayName = "AddOn";
+export const Hair = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "hair" })); Hair.displayName = "Hair";
+export const HairStyling = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "hair-styling" })); HairStyling.displayName = "HairStyling";
+export const HairTreatments = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "hair-treatments" })); HairTreatments.displayName = "HairTreatments";
+export const HairExtensions = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "hair-extensions" })); HairExtensions.displayName = "HairExtensions";
+export const Cornrows = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "cornrows" })); Cornrows.displayName = "Cornrows";
+export const BoxBraids = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "box-braids" })); BoxBraids.displayName = "BoxBraids";
+export const KnotlessBraids = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "knotless-braids" })); KnotlessBraids.displayName = "KnotlessBraids";
+export const Perm = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "perm" })); Perm.displayName = "Perm";
+export const HeadShave = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "head-shave" })); HeadShave.displayName = "HeadShave";
+export const HairDesign = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "hair-design" })); HairDesign.displayName = "HairDesign";
+export const ScalpMicropigmentation = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "scalp-micropigmentation" })); ScalpMicropigmentation.displayName = "ScalpMicropigmentation";
+export const HouseCall = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "house-call" })); HouseCall.displayName = "HouseCall";
+export const Lashes = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "lashes" })); Lashes.displayName = "Lashes";
+export const BrowsLashes = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "brows-lashes" })); BrowsLashes.displayName = "BrowsLashes";
+export const Nails = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "nails" })); Nails.displayName = "Nails";
+export const Manicure = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "manicure" })); Manicure.displayName = "Manicure";
+export const Pedicure = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "pedicure" })); Pedicure.displayName = "Pedicure";
+export const AcrylicNails = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "acrylic-nails" })); AcrylicNails.displayName = "AcrylicNails";
+export const GelNails = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "gel-nails" })); GelNails.displayName = "GelNails";
+export const SkinFace = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "skin-face" })); SkinFace.displayName = "SkinFace";
+export const Facials = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "facials" })); Facials.displayName = "Facials";
+export const Waxing = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "waxing" })); Waxing.displayName = "Waxing";
+export const BodyWaxing = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "body-waxing" })); BodyWaxing.displayName = "BodyWaxing";
+export const Body = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "body" })); Body.displayName = "Body";
+export const Massage = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "massage" })); Massage.displayName = "Massage";
+export const Makeup = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "makeup" })); Makeup.displayName = "Makeup";
+export const Tattoo = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "tattoo" })); Tattoo.displayName = "Tattoo";
+export const Piercing = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "piercing" })); Piercing.displayName = "Piercing";
 export const Booking = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "booking" })); Booking.displayName = "Booking";
 export const Reschedule = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "reschedule" })); Reschedule.displayName = "Reschedule";
 export const Cancel = forwardRef((p, ref) => createElement(MbxIcon, { ...p, ref, name: "cancel" })); Cancel.displayName = "Cancel";
