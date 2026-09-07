@@ -12,7 +12,7 @@ client app, My Shop app, admin dashboard and website.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.3.0
+npm install github:Diverso-digitech/mbx-icons#v0.3.1
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
