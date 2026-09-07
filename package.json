@@ -1,0 +1,35 @@
+{
+  "name": "@mbx/icons",
+  "version": "0.1.0",
+  "description": "Outline icon library for the barber trade, shared by the MyBarber apps, admin dashboard and website.",
+  "license": "UNLICENSED",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./react": { "types": "./dist/react/index.d.ts", "default": "./dist/react/index.js" },
+    "./react-native": { "types": "./dist/react-native/index.d.ts", "default": "./dist/react-native/index.js" },
+    "./svg/*": "./dist/svg/*",
+    "./sprite.svg": "./dist/sprite.svg",
+    "./icons.json": "./dist/icons.json",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "src", "README.md"],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepare": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && git diff --quiet -- dist docs || (echo 'dist/ is stale — run npm run build and commit' && exit 1)"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native-svg": ">=13"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "react-native-svg": { "optional": true }
+  },
+  "repository": { "type": "git", "url": "https://github.com/Diverso-digitech/mbx-icons.git" }
+}
