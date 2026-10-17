@@ -9,7 +9,7 @@
 //   dist/react-native/…          react-native-svg: same API
 //   docs/preview.html            browsable contact sheet
 
-import { mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdirSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { icons, CATEGORIES, CATEGORY_ICONS, GRID, STROKE_WIDTH } from '../src/icons.mjs';
@@ -170,6 +170,13 @@ writeFileSync(join(dist, 'react', 'index.js'), componentSource('dom'));
 writeFileSync(join(dist, 'react', 'index.d.ts'), componentTypes('dom'));
 writeFileSync(join(dist, 'react-native', 'index.js'), componentSource('native'));
 writeFileSync(join(dist, 'react-native', 'index.d.ts'), componentTypes('native'));
+
+// ── React brand-motion layer (web only) ───────────────────────────
+// Hand-authored (bespoke animation that doesn't fit the stroke-icon schema);
+// copied verbatim so `dist` stays the single thing consumers import.
+mkdirSync(join(dist, 'react', 'motion'), { recursive: true });
+writeFileSync(join(dist, 'react', 'motion', 'index.js'), readFileSync(join(root, 'src', 'motion.js'), 'utf8'));
+writeFileSync(join(dist, 'react', 'motion', 'index.d.ts'), readFileSync(join(root, 'src', 'motion.d.ts'), 'utf8'));
 
 // ── preview ────────────────────────────────────────────────────────
 writeFileSync(join(root, 'docs', 'preview.html'), renderPreview({ manifest, categories: CATEGORIES, categoryIcons: CATEGORY_ICONS, grid: GRID, strokeWidth: STROKE_WIDTH, rootAttrs: ROOT_ATTRS }));

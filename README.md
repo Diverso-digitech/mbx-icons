@@ -19,7 +19,7 @@ how to ask.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.3.1
+npm install github:Diverso-digitech/mbx-icons#v0.4.0
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
@@ -50,6 +50,27 @@ import { Fade, MbxIcon } from '@mbx/icons/react-native';
 Props on both: `name` (generic component only), `size`, `color`,
 `strokeWidth` (grid units, default 1), `absoluteStrokeWidth` (keep the
 stroke at N px whatever the size), plus any SVG prop.
+
+**Motion (web only)** — a tiny brand-motion layer, the in-house answer to a
+premium Lottie pack: pure CSS + inline SVG, no `lottie-web` runtime, no `.json`
+payloads, nothing extra to licence.
+
+```tsx
+import { BarberPoleMotion, ScissorsSnip, ClipperBuzz } from '@mbx/icons/react/motion';
+
+<BarberPoleMotion size={96} />                 // spinning pole — page / route loading
+<ScissorsSnip size={28} />                     // snipping scissors — Book-button hover
+<ClipperBuzz size={28} speed="140ms" />        // buzzing clipper — empty / tool states
+```
+
+Each component has no hooks and no event handlers, so it renders in a Server
+Component and the animation runs entirely in CSS — effectively **zero shipped
+JS**. One shared stylesheet is hoisted and de-duped by React 19's
+`<style href precedence>` (older React degrades to a harmless inline tag), and
+every animation pauses under `prefers-reduced-motion`. Retheme by setting
+`--mbx-gold` / `--mbx-gold-2` / `--mbx-gold-deep` / `--mbx-cream` on any
+ancestor; tune a loop with the `speed` prop. `size` is px (the pole's is its
+height; the SVGs' is the side).
 
 **Service categories** — every node of the admin taxonomy maps to an icon:
 
