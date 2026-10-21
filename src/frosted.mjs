@@ -94,9 +94,9 @@ export const frosted = [
 
   // ───────────── Beard & shave ─────────────
   { name: 'beard-shave', category: 'beard-shave', hue: 'navy',
-    back: `<path d="M6 8c2 3 5 5 8 6v4c0 12 6 23 14 26h4c8-3 14-14 14-26v-4c3-1 6-3 8-6-5 3-10 4-15 4-2 0-4-1-6-2h-6c-2 1-4 2-6 2-5 0-10-1-15-4Z" fill="url(#g)"/><path d="M30 20c-2-3-5-4-8-3-2 1-3 3-5 2 1 3 4 4 7 3 2-.5 4-1 6-2 2 1 4 1.5 6 2 3 1 6 0 7-3-2 1-3-1-5-2-3-1-6 0-8 3Z" fill="url(#g2)"/><path d="M24 27c2 2 10 2 12 0" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2" stroke-linecap="round"/>`,
-    glass: [rr(36, 6, 24, 10, 4), rr(45, 16, 6, 36, 3)],
-    detail: `<rect x="39" y="10" width="18" height="2" rx="1"/>` },
+    back: `<path d="M16 22c0-9 7-16 16-16s16 7 16 16c-4-4-10-6-16-6s-12 2-16 6Z" fill="url(#g)"/><path d="M16 22h4v12h-4ZM44 22h4v12h-4Z" fill="url(#g)"/><path d="M18 40c0 10 6 19 14 19s14-9 14-19c-3 3-6 4-9 4H27c-3 0-6-1-9-4Z" fill="url(#g)"/><path d="M32 41c-2-3-5-4-8-2-1 1-3 2-5 2 2 2 5 3 8 2 2-.5 3.5-1 5-1s3 .5 5 1c3 1 6 0 8-2-2 0-4-1-5-2-3-2-6-1-8 2Z" fill="url(#g2)"/><path d="M26 48c2 2 10 2 12 0" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>`,
+    glass: ['M32 12c-8 0-13 7-13 16s5 15 13 15 13-6 13-15-5-16-13-16Z'],
+    detail: `<circle cx="26.5" cy="27" r="1.7"/><circle cx="37.5" cy="27" r="1.7"/><path d="M32 30v4" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>` },
 
   // ───────────── Brows & lashes ─────────────
   { name: 'brows-lashes', category: 'brows-lashes', hue: 'purple',
@@ -154,16 +154,15 @@ export const frosted = [
   { name: 'makeup', category: 'makeup', hue: 'red',
     back: `${R(22, 30, 20, 26, 4)}${W('M22 30h20v4H22Z')}`,
     glass: ['M26 30V14l12-6v22Z'] },
-  { name: 'permanent-makeup', category: 'permanent-makeup', hue: 'purple',
-    back: `<path d="M6 24c6-8 14-11 24-9 8 2 14 5 18 9-5-1-10 0-14 2-6 3-12 4-18 2-4-1-7-2-10-4Z" fill="url(#g)"/><path d="M12 36c6-6 14-8 22-6 6 1 10 4 13 8-4-1-8-1-12 1-6 3-12 3-17 1-2-1-4-2-6-4Z" fill="url(#g2)" opacity=".9"/>${C(31, 37, 4, '#fff')}${C(31, 37, 2.2, 'url(#g2)')}`,
-    glass: ['M36 46 54 28l6 6-18 18h-6Z', 'M36 46l-5 9 9-5Z'],
-    detail: `<g fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M14 22l2-5M22 19l1-5M30 19l0-5M38 21l-1-5"/></g>` },
+  { name: 'permanent-makeup', category: 'permanent-makeup', hue: 'pink',
+    back: `<path d="M6 32C12 24 19 21 26 25c2-2 4-3 6-3s4 1 6 3c7-4 14-1 20 7Z" fill="url(#g)"/><path d="M6 32h52C52 44 43 50 32 50S12 44 6 32Z" fill="url(#g2)"/><path d="M9 32c6 1 40 1 46 0-6 2-40 2-46 0Z" fill="#fff" fill-opacity=".8"/><path d="M14 28c4-2 8-2 12 0" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>`,
+    glass: ['M44 46 58 32l5 5-14 14h-5Z', 'M44 46l-3 8 8-3Z'] },
 
   // ───────────── Tattoo & piercing ─────────────
   { name: 'tattoo-piercing', category: 'tattoo-piercing', hue: 'navy',
-    back: `<path d="M32 56S8 42 8 24a10 10 0 0 1 18-6l6 6 6-6a10 10 0 0 1 18 6c0 18-24 32-24 32Z" fill="url(#g)"/>`,
-    glass: ['M4 30h56l-4 6 4 6H4l4-6Z'],
-    detail: line('M14 36h36', 1.6) },
+    back: `<path d="M32 54S6 40 6 22a11 11 0 0 1 20-6l6 6 6-6a11 11 0 0 1 20 6c0 18-26 32-26 32Z" fill="url(#g)"/><path d="M14 20a6 6 0 0 1 6-6" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2.4" stroke-linecap="round"/>`,
+    glass: ['M2 28h60l-4 6 4 6H2l4-6Z', 'M46 58a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm0-3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z'],
+    detail: `<rect x="12" y="33" width="40" height="2" rx="1"/><circle cx="46" cy="44.5" r="1.8"/>` },
 
   // ───────────── Kids ─────────────
   { name: 'kids', category: 'kids', hue: 'teal',
@@ -172,9 +171,9 @@ export const frosted = [
 
   // ───────────── House call ─────────────
   { name: 'house-call', category: 'house-call', hue: 'red',
-    back: `<path d="M10 30h44v24a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2Z" fill="url(#g)"/><path d="M4 30 32 6l28 24-5 0L32 13 9 30Z" fill="url(#g2)"/>${R(42, 10, 6, 10, 1, 'url(#g2)')}<rect x="18" y="38" width="10" height="10" rx="2" fill="#fff" fill-opacity=".45"/><path d="M44 22h8v30h-8Z" fill="url(#g2)"/><g fill="#fff" fill-opacity=".85"><path d="M44 28l8-3v3l-8 3ZM44 36l8-3v3l-8 3ZM44 44l8-3v3l-8 3Z"/></g>${R(42, 20, 12, 3, 1.5, 'url(#g2)')}${R(42, 51, 12, 3, 1.5, 'url(#g2)')}`,
-    glass: ['M30 56V40a6 6 0 0 1 12 0v16Z'],
-    detail: `<circle cx="39" cy="49" r="1.3"/>` },
+    back: `<path d="M8 30 32 8l24 22v22a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2Z" fill="url(#g)"/><path d="M4 32 32 6l28 26-4 3L32 13 8 35Z" fill="url(#g2)"/><rect x="16" y="36" width="10" height="10" rx="2" fill="#fff" fill-opacity=".5"/>`,
+    glass: [rr(34, 26, 20, 34, 5)],
+    detail: `<rect x="37" y="30" width="14" height="22" rx="2" fill="#fff" fill-opacity=".35"/><circle cx="44" cy="56" r="1.3"/><rect x="41" y="27.5" width="6" height="1.4" rx=".7"/>` },
 ];
 
 /** service_categories.path → frosted icon name. Roots cover their subtrees via ancestor fallback. */
