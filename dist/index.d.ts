@@ -8,7 +8,7 @@ export declare const CATEGORIES: Record<MbxCategory, string>;
 export declare const ELEMENTS: Record<MbxIconName, MbxElement[]>;
 export declare const META: Record<MbxIconName, { category: MbxCategory; keywords: string[] }>;
 export declare const names: MbxIconName[];
-export type MbxCategoryPath = "hair" | "hair/haircut" | "hair/hair-styling" | "hair/hair-color" | "hair/braids" | "hair/braids/box-braids" | "hair/braids/knotless-braids" | "hair/braids/cornrows" | "hair/locs" | "hair/hair-extensions" | "hair/hair-treatments" | "beard-shave" | "brows-lashes" | "nails" | "nails/manicure" | "nails/pedicure" | "nails/acrylic-nails" | "nails/gel-nails" | "skin-face" | "skin-face/facials" | "skin-face/face-waxing" | "body" | "body/massage" | "body/body-waxing" | "makeup" | "tattoo-piercing" | "kids";
+export type MbxCategoryPath = "hair" | "hair/haircut" | "hair/hair-styling" | "hair/hair-color" | "hair/braids" | "hair/braids/box-braids" | "hair/braids/knotless-braids" | "hair/braids/cornrows" | "hair/locs" | "hair/hair-extensions" | "hair/hair-treatments" | "beard-shave" | "brows-lashes" | "nails" | "nails/manicure" | "nails/pedicure" | "nails/acrylic-nails" | "nails/gel-nails" | "skin-face" | "skin-face/facials" | "skin-face/face-waxing" | "body" | "body/massage" | "body/body-waxing" | "makeup" | "tattoo-piercing" | "kids" | "house-call" | "permanent-makeup" | "body/spray-tan";
 export declare const CATEGORY_ICONS: Record<MbxCategoryPath, MbxIconName>;
 export declare function categoryIcon(path: string | null | undefined, fallback?: MbxIconName): MbxIconName;
 export declare function body(name: MbxIconName): string;

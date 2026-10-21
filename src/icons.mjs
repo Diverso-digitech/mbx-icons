@@ -283,4 +283,7 @@ export const CATEGORY_ICONS = {
   'makeup': 'makeup',
   'tattoo-piercing': 'tattoo',
   'kids': 'kids-cut',
+  'house-call': 'house-call',
+  'permanent-makeup': 'makeup',
+  'body/spray-tan': 'spray-bottle',
 };

@@ -19,7 +19,7 @@ how to ask.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.4.0
+npm install github:Diverso-digitech/mbx-icons#v0.5.0
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
@@ -97,6 +97,31 @@ import icons from '@mbx/icons/icons.json';        // manifest for a picker UI
 ```
 
 Files: `@mbx/icons/svg/<name>.svg`, `@mbx/icons/sprite.svg`.
+
+## Frosted family
+
+Preview: [`docs/frosted.html`](docs/frosted.html). One illustration per
+`service_categories` node: a gradient object behind a frosted plate, on a pale
+ground, for 48 px and up — roundels, empty states, the website. The 24-grid
+outline set stays the UI set.
+
+```ts
+import { frostedForCategory, svg, png } from '@mbx/icons/frosted';
+
+frostedForCategory('hair/braids/box-braids')   // 'box-braids'
+frostedForCategory('hair/braids/new-node')     // 'braids' (nearest ancestor), null if nothing matches
+svg('beard-shave', 96)                          // standalone <svg> markup (web, admin, email)
+png('pedicure', 2)                              // 'png/pedicure@2x.png' → @mbx/icons/frosted/png/pedicure@2x.png
+```
+
+Files: `@mbx/icons/frosted/svg/<name>.svg`, `@mbx/icons/frosted/png/<name>@{1x,2x,3x}.png`
+(128 / 256 / 384 px, transparent). The Expo apps and the category roundel
+pipeline take the PNGs; the SVGs rely on filters (`feGaussianBlur`,
+`feDropShadow`) that react-native-svg does not render.
+
+Source: [`src/frosted.mjs`](src/frosted.mjs). Each entry is `back` (solid
+markup using `url(#g)` / `url(#g2)`), `glass` (plate paths) and optional white
+`detail`. PNGs are rendered by the optional dev dependency `sharp`.
 
 ## Adding or changing an icon
 

@@ -1,0 +1,10 @@
+export type MbxFrostedName = "hair" | "haircut" | "hair-styling" | "hair-color" | "braids" | "box-braids" | "knotless-braids" | "cornrows" | "locs" | "hair-extensions" | "hair-treatments" | "beard-shave" | "brows-lashes" | "nails" | "manicure" | "pedicure" | "acrylic-nails" | "gel-nails" | "skin-face" | "facials" | "waxing" | "body" | "massage" | "body-waxing" | "spray-tan" | "makeup" | "permanent-makeup" | "tattoo-piercing" | "kids" | "house-call";
+export type MbxFrostedCategory = "hair" | "hair/haircut" | "hair/hair-styling" | "hair/hair-color" | "hair/braids" | "hair/braids/box-braids" | "hair/braids/knotless-braids" | "hair/braids/cornrows" | "hair/locs" | "hair/hair-extensions" | "hair/hair-treatments" | "beard-shave" | "brows-lashes" | "nails" | "nails/manicure" | "nails/pedicure" | "nails/acrylic-nails" | "nails/gel-nails" | "skin-face" | "skin-face/facials" | "skin-face/face-waxing" | "body" | "body/massage" | "body/body-waxing" | "body/spray-tan" | "makeup" | "permanent-makeup" | "tattoo-piercing" | "kids" | "house-call";
+export declare const FROSTED_GRID: number;
+export declare const HUES: Record<string, [string, string, string]>;
+export declare const FROSTED: Record<MbxFrostedName, { category: MbxFrostedCategory; hue: string; svg: string }>;
+export declare const names: MbxFrostedName[];
+export declare const FROSTED_BY_CATEGORY: Record<MbxFrostedCategory, MbxFrostedName>;
+export declare function frostedForCategory(path: string | null | undefined): MbxFrostedName | null;
+export declare function svg(name: MbxFrostedName, size?: number): string;
+export declare function png(name: MbxFrostedName, scale?: 1 | 2 | 3): string;

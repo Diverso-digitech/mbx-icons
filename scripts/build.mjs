@@ -17,7 +17,8 @@ import { renderPreview } from './preview.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
-rmSync(dist, { recursive: true, force: true });
+// Clear only this family's outputs — dist/frosted belongs to build-frosted.mjs.
+for (const p of ['svg', 'react', 'react-native', 'sprite.svg', 'icons.json', 'index.js', 'index.d.ts']) rmSync(join(dist, p), { recursive: true, force: true });
 for (const d of ['svg', 'react', 'react-native']) mkdirSync(join(dist, d), { recursive: true });
 mkdirSync(join(root, 'docs'), { recursive: true });
 

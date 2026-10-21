@@ -1,6 +1,6 @@
 {
   "name": "@mbx/icons",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Outline icon library for the barber trade, shared by the MyBarber apps, admin dashboard and website.",
   "license": "SEE LICENSE IN LICENSE",
   "private": false,
@@ -28,18 +28,25 @@
     "./svg/*": "./dist/svg/*",
     "./sprite.svg": "./dist/sprite.svg",
     "./icons.json": "./dist/icons.json",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./frosted": {
+      "types": "./dist/frosted/index.d.ts",
+      "default": "./dist/frosted/index.js"
+    },
+    "./frosted/svg/*": "./dist/frosted/svg/*",
+    "./frosted/png/*": "./dist/frosted/png/*"
   },
   "files": [
-    "dist",
-    "src",
+    "LICENSE",
     "README.md",
-    "LICENSE"
+    "dist",
+    "docs",
+    "src"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "prepare": "node scripts/build.mjs",
-    "check": "node scripts/build.mjs && git diff --quiet -- dist docs || (echo 'dist/ is stale \u2014 run npm run build and commit' && exit 1)"
+    "build": "node scripts/build.mjs && node scripts/build-frosted.mjs",
+    "prepare": "node scripts/build.mjs && node scripts/build-frosted.mjs",
+    "check": "npm run build && git diff --quiet -- dist docs || (echo \"dist/ is stale \u2014 run npm run build and commit\" && exit 1)"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -56,5 +63,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Diverso-digitech/mbx-icons.git"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.3"
   }
 }
