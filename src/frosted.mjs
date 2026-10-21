@@ -7,7 +7,9 @@
 // Each entry: `back` is solid markup (fills reference the hue gradient as
 // url(#g)), `glass` is a list of path data forming the frosted plate,
 // `front` is optional coloured markup drawn IN FRONT of the plate (a beard
-// on a frosted face), and `detail` is white markup drawn on top of it all. Never hard-code a hue:
+// on a frosted face), `detail` is white markup drawn on top of it all, and
+// `zoom` scales the whole drawing about its centre so narrow objects carry
+// the same visual weight as wide ones. Never hard-code a hue:
 // use url(#g) for the object and url(#g2) for its darker companion.
 //
 // Do not edit dist/ — run `npm run build`.
@@ -66,7 +68,7 @@ export const frosted = [
   { name: 'haircut', category: 'hair/haircut', hue: 'gold',
     back: bust(26, 28, 11),
     glass: SCISSORS_GLASS },
-  { name: 'hair-styling', category: 'hair/hair-styling', hue: 'gold',
+  { name: 'hair-styling', category: 'hair/hair-styling', hue: 'gold', zoom: 1.08,
     back: `${R(8, 20, 32, 18, 9)}${R(38, 24, 14, 10, 3, 'url(#g2)')}<path d="M16 38h12l-3 18H13Z" fill="url(#g2)"/>${W('M12 26h20v3H12Z')}`,
     glass: [rr(52, 22, 10, 3.5, 1.75), rr(54, 28, 8, 3.5, 1.75), rr(52, 34, 10, 3.5, 1.75)] },
   { name: 'hair-color', category: 'hair/hair-color', hue: 'purple',
@@ -95,7 +97,7 @@ export const frosted = [
   { name: 'hair-extensions', category: 'hair/hair-extensions', hue: 'gold',
     back: `<path d="M20 14h14c4 10-2 18 2 28 2 6 0 12-5 16-4-2-7-5-9-10-3-8 2-16-2-26Z" fill="url(#g)"/><path d="M27 17c2 9-2 17 1 27 1 4 2 7 4 10" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/><path d="M27 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" fill="url(#g2)" fill-rule="evenodd"/>${R(18, 12, 18, 5, 2.5, 'url(#g2)')}`,
     glass: ['M38 20h9c3 8-1 14 2 22 1 5 0 9-3 12-3-2-5-5-6-9-2-6 1-12-2-25Z'] },
-  { name: 'hair-treatments', category: 'hair/hair-treatments', hue: 'green',
+  { name: 'hair-treatments', category: 'hair/hair-treatments', hue: 'green', zoom: 1.12,
     back: `${R(18, 22, 22, 32, 5)}${R(23, 14, 12, 10, 2)}${W('M18 34h22v3H18Z')}`,
     glass: ['M34 42c0-10 8-16 18-16 0 10-8 16-18 16Z', 'M34 42l9-9'] ,
     detail: line('M36 41l8-8', 1.6) },
@@ -114,7 +116,7 @@ export const frosted = [
     detail: line('M16 28l-3-5M32 24v-6M48 28l3-5', 2) },
 
   // ───────────── Nails ─────────────
-  { name: 'nails', category: 'nails', hue: 'pink',
+  { name: 'nails', category: 'nails', hue: 'pink', zoom: 1.18,
     back: `${R(18, 24, 28, 32, 10)}${W('M18 38h28v4H18Z')}`,
     glass: [rr(26, 6, 12, 20, 3)] },
   { name: 'manicure', category: 'nails/manicure', hue: 'pink',
@@ -155,12 +157,12 @@ export const frosted = [
     back: `<path d="M24 4h14c-2 9-5 16-4 24 .5 6 3 10 7 14l8 7c2 2 1 5-2 5H30c-5 0-8-3-8-8V34c-1-10-2-20 2-30Z" fill="url(#g)"/><path d="M27 8c-2 8-2 16-1 24" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>`,
     glass: ['M38 8c6-4 14-4 20 2-4 1-6 4-6 8-5-4-10-6-14-4Z', 'M8 20l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z'],
     detail: line('M42 12c4-2 8-2 12 0', 1.4) },
-  { name: 'spray-tan', category: 'body/spray-tan', hue: 'gold',
+  { name: 'spray-tan', category: 'body/spray-tan', hue: 'green',
     back: `${R(14, 30, 20, 28, 6)}${R(19, 24, 10, 6, 2, 'url(#g2)')}<path d="M19 12h12l6 3-6 3h-6v6h-6Z" fill="url(#g)"/><path d="M14 18c-3 3-3 6 0 9" fill="none" stroke="url(#g2)" stroke-width="3" stroke-linecap="round"/>${W('M14 42h20v3H14Z')}`,
     glass: [circ(42, 20, 5), circ(52, 26, 4), circ(44, 32, 3.5), circ(54, 38, 3), circ(46, 42, 2.4)] },
 
   // ───────────── Makeup ─────────────
-  { name: 'makeup', category: 'makeup', hue: 'red',
+  { name: 'makeup', category: 'makeup', hue: 'red', zoom: 1.18,
     back: `${R(22, 30, 20, 26, 4)}${W('M22 30h20v4H22Z')}`,
     glass: ['M26 30V14l12-6v22Z'] },
   { name: 'permanent-makeup', category: 'permanent-makeup', hue: 'pink',
