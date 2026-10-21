@@ -57,6 +57,8 @@ writeFileSync(join(out, 'index.js'), [
   `export const svg = (name, size = ${G}) => { const f = FROSTED[name]; if (!f) throw new Error('Unknown MBX frosted icon: ' + name); return f.svg.replace(/width="\\d+" height="\\d+"/, 'width="' + size + '" height="' + size + '"'); };`,
   `/** Path under the package for a PNG rendition: png(name, 2) → "png/<name>@2x.png" (128·scale px). */`,
   `export const png = (name, scale = 2) => 'png/' + name + '@' + scale + 'x.png';`,
+  `/** Roundel rendition (pale disc, icon inset, theme-independent): roundel(name, 2) → "roundel/<name>@2x.png". */`,
+  `export const roundel = (name, scale = 2) => 'roundel/' + name + '@' + scale + 'x.png';`,
   '',
 ].join('\n'));
 writeFileSync(join(out, 'index.d.ts'), [
@@ -70,12 +72,25 @@ writeFileSync(join(out, 'index.d.ts'), [
   `export declare function frostedForCategory(path: string | null | undefined): MbxFrostedName | null;`,
   `export declare function svg(name: MbxFrostedName, size?: number): string;`,
   `export declare function png(name: MbxFrostedName, scale?: 1 | 2 | 3): string;`,
+  `export declare function roundel(name: MbxFrostedName, scale?: 1 | 2 | 3): string;`,
   '',
 ].join('\n'));
 
+export const ROUNDEL_GROUND = '#EEF2F8';
+export const ROUNDEL_INSET = 0.78;
+/** Roundel: the icon inset on a pale disc, so it reads the same on light and dark UI and nothing is clipped by a circular mask. */
+export const roundelSvgFor = (f, { size = G } = {}) => {
+  const inner = svgFor(f).replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+  const t = (G * (1 - ROUNDEL_INSET)) / 2;
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${G} ${G}" width="${size}" height="${size}"><circle cx="${G / 2}" cy="${G / 2}" r="${G / 2}" fill="${ROUNDEL_GROUND}"/><g transform="translate(${t} ${t}) scale(${ROUNDEL_INSET})">${inner}</g></svg>`;
+};
+mkdirSync(join(out, 'roundel'), { recursive: true });
+for (const f of frosted) writeFileSync(join(out, 'roundel', `${f.name}.svg`), roundelSvgFor(f) + '\n');
+
 // ── preview ────────────────────────────────────────────────────────
+const roundels = frosted.filter((f) => !f.category.includes('/')).map((f) => `<div class="r"><div class="ring">${roundelSvgFor(f, { size: 72 })}</div><span>${f.category}</span></div>`).join('');
 const cells = frosted.map((f) => `<div class="c" title="${f.category}">${svgFor(f, { size: 112 })}<span>${f.name}</span><small>${f.category}</small></div>`).join('');
-writeFileSync(join(root, 'docs', 'frosted.html'), `<!doctype html><meta charset="utf-8"><title>MBX Frosted</title><style>body{margin:0;padding:32px;background:#EEF2F8;color:#3A4250;font:13px/1.4 "IBM Plex Sans",system-ui,sans-serif}h1{font:600 28px/1 Oswald,"Arial Narrow",sans-serif;text-transform:uppercase;margin:0 0 6px}p{margin:0 0 24px;color:#6B7483;max-width:62ch}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 8px}.c{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.c span{font-family:"IBM Plex Mono",Menlo,monospace;font-size:12px}.c small{color:#8A93A3;font-size:11px}</style><h1>MBX Frosted</h1><p>${frosted.length} illustrated icons, one per service-category node: a gradient object behind a frosted plate. For roundels, empty states and the website — 48 px and up.</p><div class="g">${cells}</div>`);
+writeFileSync(join(root, 'docs', 'frosted.html'), `<!doctype html><meta charset="utf-8"><title>MBX Frosted</title><style>body{margin:0;padding:32px;background:#EEF2F8;color:#3A4250;font:13px/1.4 "IBM Plex Sans",system-ui,sans-serif}h1{font:600 28px/1 Oswald,"Arial Narrow",sans-serif;text-transform:uppercase;margin:0 0 6px}p{margin:0 0 24px;color:#6B7483;max-width:62ch}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 8px}.c{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.c span{font-family:"IBM Plex Mono",Menlo,monospace;font-size:12px}.c small{color:#8A93A3;font-size:11px}.dark{background:#14171D;color:#E6E8EC;border-radius:12px;padding:20px 24px;margin:0 0 28px}.dark h2{font:500 18px/1.2 Oswald,"Arial Narrow",sans-serif;text-transform:uppercase;margin:0 0 4px}.dark p{color:#9AA1AC;margin:0 0 16px}.rg{display:flex;flex-wrap:wrap;gap:14px 18px}.r{display:flex;flex-direction:column;align-items:center;gap:6px;width:84px;text-align:center;font-size:11px;color:#C9CED6}.ring{width:78px;height:78px;border-radius:50%;border:2px solid rgba(255,200,5,.55);background:rgba(255,200,5,.08);display:grid;place-items:center}.ring svg{border-radius:50%}</style><h1>MBX Frosted</h1><p>${frosted.length} illustrated icons, one per service-category node: a gradient object behind a frosted plate. For roundels, empty states and the website — 48 px and up.</p><div class="dark"><h2>Category roundels, dark theme</h2><p>The roundel rendition carries its own pale disc, so it reads the same on the client app's dark Home as on a white card. The gold ring is the app's.</p><div class="rg">${roundels}</div></div><div class="g">${cells}</div>`);
 
 // ── PNG renditions (optional: sharp) ───────────────────────────────
 let sharp = null;
@@ -85,6 +100,7 @@ if (sharp) {
     for (const scale of [1, 2, 3]) {
       const px = 128 * scale;
       await sharp(Buffer.from(svgFor(f, { size: px }))).png().toFile(join(out, 'png', `${f.name}@${scale}x.png`));
+      await sharp(Buffer.from(roundelSvgFor(f, { size: px }))).png().toFile(join(out, 'roundel', `${f.name}@${scale}x.png`));
     }
   }
 }

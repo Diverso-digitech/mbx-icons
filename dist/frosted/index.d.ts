@@ -8,3 +8,4 @@ export declare const FROSTED_BY_CATEGORY: Record<MbxFrostedCategory, MbxFrostedN
 export declare function frostedForCategory(path: string | null | undefined): MbxFrostedName | null;
 export declare function svg(name: MbxFrostedName, size?: number): string;
 export declare function png(name: MbxFrostedName, scale?: 1 | 2 | 3): string;
+export declare function roundel(name: MbxFrostedName, scale?: 1 | 2 | 3): string;

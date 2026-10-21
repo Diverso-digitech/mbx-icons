@@ -40,6 +40,8 @@ const strands = (xs, y0 = 30, y1 = 56, w = 6) => xs.map((x) => rr(x - w / 2, y0,
 
 /** Frosted face under a hairstyle: the glass plate for the hair family. */
 const FACE = rr(21, 30, 22, 26, 11);
+/** Coloured eyes + smile, drawn in front of the face plate (white would vanish on frost). */
+const EYES = (cx = 32, cy = 41) => `<circle cx="${cx - 5}" cy="${cy}" r="1.8" fill="url(#g2)"/><circle cx="${cx + 5}" cy="${cy}" r="1.8" fill="url(#g2)"/><path d="M${cx - 3.5} ${cy + 6}c1.5 1.5 5.5 1.5 7 0" fill="none" stroke="url(#g2)" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>`;
 /** Hair cap sitting on the face. */
 const CAP = `<path d="M14 34c0-14 8-24 18-24s18 10 18 24c-5-6-11-8-18-8s-13 2-18 8Z" fill="url(#g)"/>`;
 /** A plait: alternating tilted segments down a column. */
@@ -72,19 +74,24 @@ export const frosted = [
     glass: ['M30 30 50 10l5 5-20 20Z', rr(27, 29, 8, 8, 2)] },
   { name: 'braids', category: 'hair/braids', hue: 'gold',
     back: `${CAP}${plait(14, 28, 58, 7)}${plait(50, 28, 58, 7)}${plait(22, 32, 58, 6)}${plait(42, 32, 58, 6)}`,
-    glass: [FACE] },
+    glass: [FACE],
+    front: EYES() },
   { name: 'box-braids', category: 'hair/braids/box-braids', hue: 'gold',
     back: `${CAP}<g fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.4"><path d="M24 12v16M40 12v16M17 22h30"/></g>${plait(12, 28, 58, 6)}${plait(52, 28, 58, 6)}${plait(20, 32, 58, 5)}${plait(44, 32, 58, 5)}`,
-    glass: [FACE] },
+    glass: [FACE],
+    front: EYES() },
   { name: 'knotless-braids', category: 'hair/braids/knotless-braids', hue: 'gold',
     back: `${CAP}${R(11, 24, 6, 12, 3)}${R(47, 24, 6, 12, 3)}${plait(14, 36, 58, 6)}${plait(50, 36, 58, 6)}${R(19, 28, 5, 10, 2.5)}${R(40, 28, 5, 10, 2.5)}${plait(21.5, 38, 58, 5)}${plait(42.5, 38, 58, 5)}`,
-    glass: [FACE] },
+    glass: [FACE],
+    front: EYES() },
   { name: 'cornrows', category: 'hair/braids/cornrows', hue: 'gold',
     back: `<path d="M12 40V30c0-12 9-22 20-22s20 10 20 22v10c-4-4-6-10-6-14-4 4-9 6-14 6s-10-2-14-6c0 4-2 10-6 14Z" fill="url(#g)"/><g fill="none" stroke="url(#g2)" stroke-width="3.4" stroke-linecap="round"><path d="M16 36c0-10 4-18 10-22M25 34c0-8 3-15 7-19M39 34c0-8-3-15-7-19M48 36c0-10-4-18-10-22"/></g><g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6" stroke-dasharray="1.6 2.6"><path d="M16 36c0-10 4-18 10-22M25 34c0-8 3-15 7-19M39 34c0-8-3-15-7-19M48 36c0-10-4-18-10-22"/></g>`,
-    glass: [rr(20, 28, 24, 30, 12)] },
+    glass: [rr(20, 28, 24, 30, 12)],
+    front: EYES(32, 41) },
   { name: 'locs', category: 'hair/locs', hue: 'gold',
     back: `${CAP}${loc(13, 26, 58)}${loc(51, 26, 58)}${loc(20, 30, 58)}${loc(44, 30, 58)}${loc(32, 12, 22, 6)}`,
-    glass: [FACE] },
+    glass: [FACE],
+    front: EYES() },
   { name: 'hair-extensions', category: 'hair/hair-extensions', hue: 'gold',
     back: `<path d="M20 14h14c4 10-2 18 2 28 2 6 0 12-5 16-4-2-7-5-9-10-3-8 2-16-2-26Z" fill="url(#g)"/><path d="M27 17c2 9-2 17 1 27 1 4 2 7 4 10" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/><path d="M27 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" fill="url(#g2)" fill-rule="evenodd"/>${R(18, 12, 18, 5, 2.5, 'url(#g2)')}`,
     glass: ['M38 20h9c3 8-1 14 2 22 1 5 0 9-3 12-3-2-5-5-6-9-2-6 1-12-2-25Z'] },

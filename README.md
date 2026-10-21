@@ -19,7 +19,7 @@ how to ask.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.5.5
+npm install github:Diverso-digitech/mbx-icons#v0.6.0
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
@@ -115,7 +115,10 @@ png('pedicure', 2)                              // 'png/pedicure@2x.png' → @mb
 ```
 
 Files: `@mbx/icons/frosted/svg/<name>.svg`, `@mbx/icons/frosted/png/<name>@{1x,2x,3x}.png`
-(128 / 256 / 384 px, transparent). The Expo apps and the category roundel
+(128 / 256 / 384 px, transparent), and `@mbx/icons/frosted/roundel/<name>@{1x,2x,3x}.png` —
+the **roundel rendition**: the icon inset on its own pale disc, so it reads the same inside the
+client app's gold ring on the dark theme as on a white card, and nothing is clipped by a circular
+mask. Use the roundel files for category images; use the plain PNGs on light surfaces. The Expo apps and the category roundel
 pipeline take the PNGs; the SVGs rely on filters (`feGaussianBlur`,
 `feDropShadow`) that react-native-svg does not render.
 

@@ -1,6 +1,6 @@
 {
   "name": "@mbx/icons",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "Outline icon library for the barber trade, shared by the MyBarber apps, admin dashboard and website.",
   "license": "SEE LICENSE IN LICENSE",
   "private": false,
@@ -45,7 +45,6 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build-frosted.mjs",
-    "prepare": "node scripts/build.mjs && node scripts/build-frosted.mjs",
     "check": "npm run build && git diff --quiet -- dist docs || (echo \"dist/ is stale \u2014 run npm run build and commit\" && exit 1)"
   },
   "peerDependencies": {
