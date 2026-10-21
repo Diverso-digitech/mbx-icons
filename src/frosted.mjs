@@ -36,45 +36,57 @@ const bust = (cx = 30, cy = 24, r = 11) => `${C(cx, cy, r)}<path d="M${cx - 18} 
 const headOnly = (cx = 32, cy = 22, r = 12) => C(cx, cy, r);
 /** Three hanging strands as glass (braids/locs/twists), x centres given. */
 const strands = (xs, y0 = 30, y1 = 56, w = 6) => xs.map((x) => rr(x - w / 2, y0, w, y1 - y0, w / 2));
+
+/** Frosted face under a hairstyle: the glass plate for the hair family. */
+const FACE = rr(21, 30, 22, 26, 11);
+/** Hair cap sitting on the face. */
+const CAP = `<path d="M14 34c0-14 8-24 18-24s18 10 18 24c-5-6-11-8-18-8s-13 2-18 8Z" fill="url(#g)"/>`;
+/** A plait: alternating tilted segments down a column. */
+const plait = (x, y0, y1, w = 6, fill = 'url(#g)') => { let out = ''; for (let y = y0, k = 0; y < y1; y += w * 0.95, k++) out += `<rect x="${x - w / 2}" y="${y}" width="${w}" height="${w * 1.5}" rx="${w / 2}" transform="rotate(${k % 2 ? 28 : -28} ${x} ${y + w * 0.75})" fill="${fill}"/>`; return out; };
+/** A loc: rope with segment marks. */
+const loc = (x, y0, y1, w = 5) => `<rect x="${x - w / 2}" y="${y0}" width="${w}" height="${y1 - y0}" rx="${w / 2}" fill="url(#g)"/>` + Array.from({ length: Math.floor((y1 - y0 - 6) / 6) }, (_, i) => `<rect x="${x - w / 2}" y="${y0 + 5 + i * 6}" width="${w}" height="1.6" fill="#fff" fill-opacity=".45"/>`).join('');
+/** Scissors as solid: two blades crossing, rings at the bottom. */
+const SCISSORS = `<path d="M15 8 50 46l-5 4L10 12Z" fill="url(#g)"/><path d="M49 8 14 46l5 4L54 12Z" fill="url(#g)"/><path d="M15 58a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13Zm0-3.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" fill="url(#g2)" fill-rule="evenodd"/><path d="M49 58a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13Zm0-3.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" fill="url(#g2)" fill-rule="evenodd"/><circle cx="32" cy="27" r="2.2" fill="url(#g2)"/>`;
+/** Scissors as glass (plate paths), top-right, for the haircut icon. */
+const SCISSORS_GLASS = ['M38 6 58 28l-3 3L35 9Z', 'M58 6 38 28l3 3L61 9Z', 'M36 38a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z', 'M60 38a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z'];
+/** Safety razor as glass: head + handle. */
+const RAZOR_GLASS = [rr(38, 8, 20, 9, 3), rr(46, 17, 4, 32, 2)];
+
 const scissorBladeGlass = 'M50 34 30 10l-5 4 20 24Z';
 const scissorRingGlass = 'M47 46a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-3a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z';
 
 export const frosted = [
   // ───────────── Hair ─────────────
   { name: 'hair', category: 'hair', hue: 'gold',
-    back: `${R(10, 26, 36, 10, 4)}<g fill="#fff" fill-opacity=".4">${[14, 20, 26, 32, 38].map((x) => `<rect x="${x}" y="36" width="3" height="14" rx="1.5"/>`).join('')}</g>${R(10, 36, 36, 3, 1.5)}`,
-    glass: [scissorBladeGlass, scissorRingGlass] },
+    back: SCISSORS,
+    glass: ['M4 40a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v3H4Z', ...[7, 12, 17, 22, 27].map((x) => rr(x, 43, 3, 11, 1.5))] },
   { name: 'haircut', category: 'hair/haircut', hue: 'gold',
-    back: bust(28, 26, 11),
-    glass: ['M56 30 38 8l-5 4 18 22Z', 'M52 42a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-3a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z'] },
+    back: bust(26, 28, 11),
+    glass: SCISSORS_GLASS },
   { name: 'hair-styling', category: 'hair/hair-styling', hue: 'gold',
-    back: `${R(28, 30, 8, 26, 4)}`,
-    glass: [rr(20, 8, 24, 24, 12)],
-    detail: [[26, 14], [32, 12], [38, 14], [26, 20], [32, 18], [38, 20], [26, 26], [32, 24], [38, 26]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.6"/>`).join('') },
+    back: `${R(8, 20, 32, 18, 9)}${R(38, 24, 14, 10, 3, 'url(#g2)')}<path d="M16 38h12l-3 18H13Z" fill="url(#g2)"/>${W('M12 26h20v3H12Z')}`,
+    glass: [rr(52, 22, 10, 3.5, 1.75), rr(54, 28, 8, 3.5, 1.75), rr(52, 34, 10, 3.5, 1.75)] },
   { name: 'hair-color', category: 'hair/hair-color', hue: 'purple',
     back: `<path d="M10 32h34c0 10-7 18-17 18S10 42 10 32Z" fill="url(#g)"/>${W('M10 32h34v4H10Z')}`,
     glass: ['M30 30 50 10l5 5-20 20Z', rr(27, 29, 8, 8, 2)] },
   { name: 'braids', category: 'hair/braids', hue: 'gold',
-    back: headOnly(32, 20, 12),
-    glass: strands([20, 32, 44], 30, 56),
-    detail: [20, 32, 44].flatMap((x) => [38, 46].map((y) => `<rect x="${x - 2.5}" y="${y}" width="5" height="1.6" rx=".8"/>`)).join('') },
+    back: `${CAP}${plait(14, 28, 58, 7)}${plait(50, 28, 58, 7)}${plait(22, 32, 58, 6)}${plait(42, 32, 58, 6)}`,
+    glass: [FACE] },
   { name: 'box-braids', category: 'hair/braids/box-braids', hue: 'gold',
-    back: `${headOnly(32, 20, 12)}<g fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.4"><path d="M26 10v18M38 10v18M21 19h22"/></g>`,
-    glass: strands([20, 32, 44], 30, 56),
-    detail: [20, 32, 44].flatMap((x) => [38, 46].map((y) => `<rect x="${x - 2.5}" y="${y}" width="5" height="1.6" rx=".8"/>`)).join('') },
+    back: `${CAP}<g fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.4"><path d="M24 12v16M40 12v16M17 22h30"/></g>${plait(12, 28, 58, 6)}${plait(52, 28, 58, 6)}${plait(20, 32, 58, 5)}${plait(44, 32, 58, 5)}`,
+    glass: [FACE] },
   { name: 'knotless-braids', category: 'hair/braids/knotless-braids', hue: 'gold',
-    back: headOnly(32, 20, 12),
-    glass: strands([20, 32, 44], 30, 56, 5),
-    detail: [20, 32, 44].map((x) => `<rect x="${x - 2}" y="48" width="4" height="1.6" rx=".8"/>`).join('') },
+    back: `${CAP}${R(11, 24, 6, 12, 3)}${R(47, 24, 6, 12, 3)}${plait(14, 36, 58, 6)}${plait(50, 36, 58, 6)}${R(19, 28, 5, 10, 2.5)}${R(40, 28, 5, 10, 2.5)}${plait(21.5, 38, 58, 5)}${plait(42.5, 38, 58, 5)}`,
+    glass: [FACE] },
   { name: 'cornrows', category: 'hair/braids/cornrows', hue: 'gold',
-    back: `${C(32, 30, 20)}<g fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-dasharray="3 2.5"><path d="M22 14c-2 6-2 12 0 18M32 11v22M42 14c2 6 2 12 0 18"/></g>`,
-    glass: ['M12 34h40c0 11-9 18-20 18S12 45 12 34Z'] },
+    back: `<path d="M12 40V30c0-12 9-22 20-22s20 10 20 22v10c-4-4-6-10-6-14-4 4-9 6-14 6s-10-2-14-6c0 4-2 10-6 14Z" fill="url(#g)"/><g fill="none" stroke="url(#g2)" stroke-width="3.4" stroke-linecap="round"><path d="M16 36c0-10 4-18 10-22M25 34c0-8 3-15 7-19M39 34c0-8-3-15-7-19M48 36c0-10-4-18-10-22"/></g><g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6" stroke-dasharray="1.6 2.6"><path d="M16 36c0-10 4-18 10-22M25 34c0-8 3-15 7-19M39 34c0-8-3-15-7-19M48 36c0-10-4-18-10-22"/></g>`,
+    glass: [rr(20, 28, 24, 30, 12)] },
   { name: 'locs', category: 'hair/locs', hue: 'gold',
-    back: headOnly(32, 20, 12),
-    glass: [20, 32, 44].map((x) => `M${x - 3} 30c-3 4 3 8 0 12s3 8 0 12h6c3-4-3-8 0-12s-3-8 0-12Z`) },
+    back: `${CAP}${loc(13, 26, 58)}${loc(51, 26, 58)}${loc(20, 30, 58)}${loc(44, 30, 58)}${loc(32, 12, 22, 6)}`,
+    glass: [FACE] },
   { name: 'hair-extensions', category: 'hair/hair-extensions', hue: 'gold',
-    back: `${R(16, 10, 32, 8, 4)}<g fill="#fff" fill-opacity=".5"><circle cx="22" cy="14" r="1.8"/><circle cx="32" cy="14" r="1.8"/><circle cx="42" cy="14" r="1.8"/></g>`,
-    glass: ['M18 18h8c-1 12 1 26-2 38h-8c3-12 1-26 2-38Z', 'M30 18h8c0 12 0 26 0 38h-8c0-12 0-26 0-38Z', 'M42 18h8c-1 12 1 26 2 38h-8c-3-12-1-26-2-38Z'] },
+    back: `<path d="M18 16h18c3 8-2 14 0 22s-2 14 0 20H18c3-6-2-12 0-20s-3-14 0-22Z" fill="url(#g)"/>${R(14, 8, 26, 9, 4.5, 'url(#g2)')}<g fill="#fff" fill-opacity=".6"><circle cx="20" cy="12.5" r="1.6"/><circle cx="27" cy="12.5" r="1.6"/><circle cx="34" cy="12.5" r="1.6"/></g>`,
+    glass: ['M38 20h14c3 8-2 14 0 22s-2 10 0 16H38c3-6-2-8 0-16s-3-14 0-22Z'] },
   { name: 'hair-treatments', category: 'hair/hair-treatments', hue: 'green',
     back: `${R(18, 22, 22, 32, 5)}${R(23, 14, 12, 10, 2)}${W('M18 34h22v3H18Z')}`,
     glass: ['M34 42c0-10 8-16 18-16 0 10-8 16-18 16Z', 'M34 42l9-9'] ,
@@ -82,8 +94,9 @@ export const frosted = [
 
   // ───────────── Beard & shave ─────────────
   { name: 'beard-shave', category: 'beard-shave', hue: 'navy',
-    back: `<path d="M10 6h7v9c1.5 2 5 3.5 9 3.5s7.5-1.5 9-3.5V6h7v16c0 13-7 24-16 24S10 35 10 22Z" fill="url(#g)"/>${W('M19 24c2 2.5 12 2.5 14 0-2 1.2-12 1.2-14 0Z')}<path d="M22 20c1.5-2 3-2 4-.8 1-1.2 2.5-1.2 4 .8-1.5.8-3 1-4 .4-1 .6-2.5.4-4-.4Z" fill="#fff" fill-opacity=".55"/>`,
-    glass: ['M34 40 52 22h8v8L42 48Z', 'M36 42 22 56a5 5 0 0 0 7 7l14-14Z'] },
+    back: `<path d="M8 6h7v9c1.5 2 5 3.5 9 3.5s7.5-1.5 9-3.5V6h7v16c0 13-7 24-16 24S8 35 8 22Z" fill="url(#g)"/>${W('M17 24c2 2.5 12 2.5 14 0-2 1.2-12 1.2-14 0Z')}<path d="M20 20c1.5-2 3-2 4-.8 1-1.2 2.5-1.2 4 .8-1.5.8-3 1-4 .4-1 .6-2.5.4-4-.4Z" fill="#fff" fill-opacity=".55"/>`,
+    glass: RAZOR_GLASS,
+    detail: `<rect x="41" y="11.5" width="14" height="1.6" rx=".8"/>` },
 
   // ───────────── Brows & lashes ─────────────
   { name: 'brows-lashes', category: 'brows-lashes', hue: 'purple',
@@ -99,20 +112,20 @@ export const frosted = [
     back: `<path d="M16 58V46l-6-10a3 3 0 0 1 5-3l3 4V14a3 3 0 0 1 6 0v14h2V11a3 3 0 0 1 6 0v17h2V14a3 3 0 0 1 6 0v14h2V20a3 3 0 0 1 6 0v22c0 9-7 16-16 16Z" fill="url(#g)"/>`,
     glass: [rr(40, 34, 14, 22, 6), rr(44, 26, 6, 9, 2)] },
   { name: 'pedicure', category: 'nails/pedicure', hue: 'pink',
-    back: `<path d="M30 58c-9 0-14-5-14-14 0-7 3-12 4-20 1-6 8-9 14-6 7 3 13 6 13 14 0 12-7 26-17 26Z" fill="url(#g)"/>`,
-    glass: [circ(21, 14, 5), circ(30, 10, 3.6), circ(37, 11.5, 3), circ(43, 15, 2.6), circ(47, 20, 2.3)] },
+    back: `<path d="M27 58c-8 0-13-6-13-16 0-8 3-13 5-22 2-7 9-10 15-7 6 3 11 7 11 15 0 14-7 30-18 30Z" fill="url(#g)"/><g fill="url(#g2)"><circle cx="17" cy="13" r="4.5"/><circle cx="26" cy="8" r="3.2"/><circle cx="34" cy="9" r="2.8"/><circle cx="40" cy="12" r="2.4"/><circle cx="44" cy="16" r="2.1"/></g>`,
+    glass: ['M4 40h56v8a10 10 0 0 1-10 10H14A10 10 0 0 1 4 48Z'],
+    detail: line('M10 44c4-2 8 2 12 0s8-2 12 0 8 2 12 0 6-2 8 0', 1.6) },
   { name: 'acrylic-nails', category: 'nails/acrylic-nails', hue: 'pink',
-    back: `<path d="M20 58V38a12 12 0 0 1 24 0v20Z" fill="url(#g)"/>`,
-    glass: ['M25 38a7 7 0 0 1 14 0V20L32 6l-7 14Z'] },
+    back: `<path d="M14 60V46l-6-10a3 3 0 0 1 5-3l3 4V22a3 3 0 0 1 6 0v12h2V18a3 3 0 0 1 6 0v16h2V21a3 3 0 0 1 6 0v13h2V26a3 3 0 0 1 6 0v18c0 9-7 16-16 16Z" fill="url(#g)"/><path d="M19 22l3-12 3 12ZM27 18l3-12 3 12ZM35 21l3-12 3 12ZM43 26l3-10 3 10Z" fill="url(#g2)"/>`,
+    glass: ['M52 8l2.2 5.8 5.8 2.2-5.8 2.2L52 24l-2.2-5.8L44 16l5.8-2.2Z'] },
   { name: 'gel-nails', category: 'nails/gel-nails', hue: 'pink',
-    back: `<path d="M22 24a10 10 0 0 1 20 0v14a10 10 0 0 1-20 0Z" fill="url(#g)"/>${W('M22 30c7-2 13-2 20 0v4c-7-2-13-2-20 0Z')}`,
-    glass: ['M8 52V40a24 24 0 0 1 48 0v12Z'] ,
-    detail: line('M32 46V36M22 48l-3-9M42 48l3-9', 1.8) },
+    back: `<path d="M12 58V30a11 11 0 0 1 22 0v28Z" fill="url(#g)"/><path d="M16 56V32a7 7 0 0 1 4-6c1 8 1 20-1 30Z" fill="#fff" fill-opacity=".45"/>`,
+    glass: [rr(40, 4, 9, 30, 4.5), 'M38 34h13l-3 12a3.5 3.5 0 0 1-7 0Z', 'M30 44c-1.5 2.5-3 4.5-3 6a3 3 0 0 0 6 0c0-1.5-1.5-3.5-3-6Z'] },
 
   // ───────────── Skin & face ─────────────
   { name: 'skin-face', category: 'skin-face', hue: 'teal',
-    back: `<path d="M30 8C20 9 14 18 14 30s7 22 16 22 16-10 16-22" fill="url(#g)"/>${W('M24 28a2 2 0 1 0 0 .1ZM36 28a2 2 0 1 0 0 .1Z')}<path d="M25 38c2 2 8 2 10 0" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>`,
-    glass: ['M48 10l3 8 8 3-8 3-3 8-3-8-8-3 8-3Z'] },
+    back: `<path d="M30 6C19 6 12 16 12 30s8 24 18 24 18-10 18-24S41 6 30 6Z" fill="url(#g)"/><g fill="#fff" fill-opacity=".7"><circle cx="23" cy="27" r="2"/><circle cx="37" cy="27" r="2"/></g><path d="M24 38c2 2.5 10 2.5 12 0" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>`,
+    glass: ['M50 8l3 8 8 3-8 3-3 8-3-8-8-3 8-3Z', 'M44 40l1.6 4.4 4.4 1.6-4.4 1.6L44 52l-1.6-4.4-4.4-1.6 4.4-1.6Z'] },
   { name: 'facials', category: 'skin-face/facials', hue: 'teal',
     back: `<path d="M32 6C21 6 14 16 14 30s8 24 18 24 18-10 18-24S43 6 32 6Z" fill="url(#g)"/><path d="M26 42c2 2 10 2 12 0" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>`,
     glass: [circ(23, 28, 7), circ(41, 28, 7)],
@@ -123,14 +136,15 @@ export const frosted = [
 
   // ───────────── Body ─────────────
   { name: 'body', category: 'body', hue: 'green',
-    back: `${C(32, 11, 6)}<path d="M23 58V40l-6-9v-7a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v7l-6 9v18Z" fill="url(#g)"/>`,
-    glass: ['M38 54c0-12 9-20 20-20 0 12-9 20-20 20Z'] },
+    back: `${C(28, 9, 6)}<path d="M18 18h20a4 4 0 0 1 4 4v12l-4 1v-9l-1 1v31h-7V40h-4v18h-7V27l-1-1v9l-4-1V22a4 4 0 0 1 4-4Z" fill="url(#g)"/>`,
+    glass: ['M40 52c0-12 9-20 20-20 0 12-9 20-20 20Z'],
+    detail: line('M43 49l12-12', 1.6) },
   { name: 'massage', category: 'body/massage', hue: 'green',
     back: `${R(6, 40, 52, 8, 4)}${R(10, 48, 5, 10, 2)}${R(49, 48, 5, 10, 2)}`,
     glass: [circ(16, 33, 7), rr(24, 29, 34, 11, 5.5)] },
   { name: 'body-waxing', category: 'body/body-waxing', hue: 'green',
-    back: `<path d="M26 6h14c-1 10-4 20-2 30l2 10h10l1 6H28l-2-16c-1-10-3-20 0-30Z" fill="url(#g)"/>`,
-    glass: ['M14 18l2.2 5.8 5.8 2.2-5.8 2.2L14 34l-2.2-5.8L6 26l5.8-2.2Z', 'M52 36l1.6 4.4 4.4 1.6-4.4 1.6L52 48l-1.6-4.4-4.4-1.6 4.4-1.6Z'] },
+    back: `<path d="M20 6h14c-3 8-4 14-3 22 1 6 4 10 9 14l9 6c3 2 2 6-2 6H28c-5 0-8-4-8-9V30c-1-9-2-16 0-24Z" fill="url(#g)"/>`,
+    glass: ['M12 36l2.2 5.8 5.8 2.2-5.8 2.2L12 52l-2.2-5.8L4 44l5.8-2.2Z', 'M50 10l1.6 4.4 4.4 1.6-4.4 1.6L50 22l-1.6-4.4-4.4-1.6 4.4-1.6Z'] },
   { name: 'spray-tan', category: 'body/spray-tan', hue: 'gold',
     back: `${R(14, 30, 20, 28, 6)}${R(19, 24, 10, 6, 2, 'url(#g2)')}<path d="M19 12h12l6 3-6 3h-6v6h-6Z" fill="url(#g)"/><path d="M14 18c-3 3-3 6 0 9" fill="none" stroke="url(#g2)" stroke-width="3" stroke-linecap="round"/>${W('M14 42h20v3H14Z')}`,
     glass: [circ(42, 20, 5), circ(52, 26, 4), circ(44, 32, 3.5), circ(54, 38, 3), circ(46, 42, 2.4)] },
@@ -139,10 +153,9 @@ export const frosted = [
   { name: 'makeup', category: 'makeup', hue: 'red',
     back: `${R(22, 30, 20, 26, 4)}${W('M22 30h20v4H22Z')}`,
     glass: ['M26 30V14l12-6v22Z'] },
-  { name: 'permanent-makeup', category: 'permanent-makeup', hue: 'purple',
-    back: `<path d="M8 30c6-8 12-12 24-12s18 4 24 12c-6 8-12 12-24 12S14 38 8 30Z" fill="url(#g)"/>${W('M8 30h48c-6-6-12-9-24-9S14 24 8 30Z')}`,
-    glass: ['M36 46 52 30l6 6-16 16h-6Z'] ,
-    detail: line('M40 50l-4 4', 1.6) },
+  { name: 'permanent-makeup', category: 'permanent-makeup', hue: 'red',
+    back: `<path d="M6 32c5-8 10-11 15-8 3-3 6-4 9-4s6 1 9 4c5-3 10 0 15 8Z" fill="url(#g)"/><path d="M6 32h48c-7 11-15 16-24 16S13 43 6 32Z" fill="url(#g2)"/>${W('M6 32h48c-1 .6-47 .6-48 0Z')}`,
+    glass: ['M38 52 56 34l6 6-18 18h-6Z', 'M38 52l-4 8 8-4Z'] },
 
   // ───────────── Tattoo & piercing ─────────────
   { name: 'tattoo-piercing', category: 'tattoo-piercing', hue: 'navy',
@@ -152,9 +165,8 @@ export const frosted = [
 
   // ───────────── Kids ─────────────
   { name: 'kids', category: 'kids', hue: 'teal',
-    back: `${bust(30, 28, 11)}<path d="M30 17c0-5 3-7 7-7" fill="none" stroke="url(#g2)" stroke-width="3" stroke-linecap="round"/>`,
-    glass: [circ(50, 16, 9)],
-    detail: line('M50 11v10M45 16h10', 2.2) },
+    back: `${bust(30, 28, 11)}<path d="M19 26a11 11 0 0 1 22 0c-3-3-7-4.5-11-4.5S22 23 19 26Z" fill="url(#g2)"/>`,
+    glass: ['M50 6l3 7 7.5 1-5.5 5 1.5 7.5-6.5-4-6.5 4 1.5-7.5-5.5-5 7.5-1Z'] },
 
   // ───────────── House call ─────────────
   { name: 'house-call', category: 'house-call', hue: 'red',
