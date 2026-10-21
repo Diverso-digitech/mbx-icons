@@ -5,8 +5,9 @@
 // in icons.mjs stays the UI set.
 //
 // Each entry: `back` is solid markup (fills reference the hue gradient as
-// url(#g)), `glass` is a list of path data forming the frosted plate, and
-// `detail` is white markup drawn on top of the plate. Never hard-code a hue:
+// url(#g)), `glass` is a list of path data forming the frosted plate,
+// `front` is optional coloured markup drawn IN FRONT of the plate (a beard
+// on a frosted face), and `detail` is white markup drawn on top of it all. Never hard-code a hue:
 // use url(#g) for the object and url(#g2) for its darker companion.
 //
 // Do not edit dist/ — run `npm run build`.
@@ -94,9 +95,10 @@ export const frosted = [
 
   // ───────────── Beard & shave ─────────────
   { name: 'beard-shave', category: 'beard-shave', hue: 'navy',
-    back: `<path d="M16 22c0-9 7-16 16-16s16 7 16 16c-4-4-10-6-16-6s-12 2-16 6Z" fill="url(#g)"/><path d="M16 22h4v12h-4ZM44 22h4v12h-4Z" fill="url(#g)"/><path d="M18 40c0 10 6 19 14 19s14-9 14-19c-3 3-6 4-9 4H27c-3 0-6-1-9-4Z" fill="url(#g)"/><path d="M32 41c-2-3-5-4-8-2-1 1-3 2-5 2 2 2 5 3 8 2 2-.5 3.5-1 5-1s3 .5 5 1c3 1 6 0 8-2-2 0-4-1-5-2-3-2-6-1-8 2Z" fill="url(#g2)"/><path d="M26 48c2 2 10 2 12 0" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>`,
-    glass: ['M32 12c-8 0-13 7-13 16s5 15 13 15 13-6 13-15-5-16-13-16Z'],
-    detail: `<circle cx="26.5" cy="27" r="1.7"/><circle cx="37.5" cy="27" r="1.7"/><path d="M32 30v4" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>` },
+    back: `<path d="M16 26c0-11 7-19 16-19s16 8 16 19c-4-5-10-7-16-7s-12 2-16 7Z" fill="url(#g)"/>`,
+    glass: ['M32 12c-9 0-15 8-15 19s6 19 15 19 15-8 15-19-6-19-15-19Z'],
+    front: `<path d="M17 30v8c0 9 6 17 15 17s15-8 15-17v-8c-2 4-3 7-3 11 0 2-1 3-2 3-2-2-5-3-10-3s-8 1-10 3c-1 0-2-1-2-3 0-4-1-7-3-11Z" fill="url(#g)"/><path d="M32 38c-2-3-5-4-8-2-1 1-3 2-5 2 2 2 5 3 8 2 2-.5 3.5-1 5-1s3 .5 5 1c3 1 6 0 8-2-2 0-4-1-5-2-3-2-6-1-8 2Z" fill="url(#g2)"/><g fill="none" stroke="url(#g2)" stroke-width="2.2" stroke-linecap="round"><path d="M22 22.5c3-2 6-2 8 0M34 22.5c2-2 5-2 8 0"/></g>`,
+    detail: `<circle cx="26" cy="27.5" r="1.7"/><circle cx="38" cy="27.5" r="1.7"/><path d="M32 29v5" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/><path d="M27 46c2 2 8 2 10 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>` },
 
   // ───────────── Brows & lashes ─────────────
   { name: 'brows-lashes', category: 'brows-lashes', hue: 'purple',
