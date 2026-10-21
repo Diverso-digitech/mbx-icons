@@ -19,7 +19,7 @@ how to ask.
 ## Install
 
 ```bash
-npm install github:Diverso-digitech/mbx-icons#v0.5.1
+npm install github:Diverso-digitech/mbx-icons#v0.5.2
 ```
 
 `dist/` is committed, so a git install needs no build step. Pin a tag; bump
